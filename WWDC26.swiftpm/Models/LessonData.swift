@@ -21,12 +21,12 @@ struct LessonData {
             ],
             description: "Learn to tell when something is wrong with your body.",
             category: .selfCare,
-            order: 1,
+            order: 1
             
         ),
                 
         Lesson(
-            title: "I am...",
+            title: "I am",
             phrases: [
                 Phrase(nativeText: "I am cold", targetText: "Estou com frio", audioFileName: "frio_audio", imageName: "snowflake", category: .selfCare),
                 Phrase(nativeText: "I am hot", targetText: "Estou com calor", audioFileName: "calor_audio", imageName: "sun.max.fill", category: .selfCare),
@@ -37,7 +37,7 @@ struct LessonData {
             ],
             description: "Words to express your feelings and temperature.",
             category: .selfCare,
-            order: 2,
+            order: 2
            
         ),
         
@@ -68,7 +68,7 @@ struct LessonData {
             ],
             description: "Say when you need to rest or slow down.",
             category: .selfCare,
-            order: 3,
+            order: 3
         ),
         
         Lesson(
@@ -105,7 +105,7 @@ struct LessonData {
             ],
             description: "Simple phrases to feel comfortable and safe.",
             category: .selfCare,
-            order: 5,
+            order: 4
         ),
         
         // MARK: - CATEGORIA: NEEDS (NECESSIDADES)
@@ -122,7 +122,7 @@ struct LessonData {
                 ),
                 Phrase(
                     nativeText: "I am tired",
-                    targetText: "Estou cansado(a)",
+                    targetText: "Estou cansado",
                     audioFileName: "cansado_audio",
                     imageName: "zzz",
                     category: .needs
@@ -144,7 +144,7 @@ struct LessonData {
             ],
             description: "Essential things you need every day.",
             category: .needs,
-            order: 1,
+            order: 1
         ),
         Lesson(
             title: "I Need to Stop",
@@ -194,7 +194,7 @@ struct LessonData {
             ],
             description: "How to ask for help at school and understand it better.",
             category: .needs,
-            order: 3,
+            order: 3
             
         ),
         Lesson(
@@ -206,7 +206,7 @@ struct LessonData {
             ],
             description: "Essential things you need every day.",
             category: .needs,
-            order: 4,
+            order: 4
             
         ),
         
@@ -215,14 +215,14 @@ struct LessonData {
         Lesson(
             title: "Greetings",
             phrases: [
-                Phrase(nativeText: "My name is...", targetText: "Meu nome é...", audioFileName: "nome_audio", imageName: "person.text.rectangle", category: .social),
-                Phrase(nativeText: "I am from...", targetText: "Eu sou de...", audioFileName: "deonde_audio", imageName: "globe.americas.fill", category: .social),
-                Phrase(nativeText: "I am new here...", targetText: "Eu sou novo aqui...", audioFileName: "sounovo_audio", imageName: "globe.americas.fill", category: .social),
+                Phrase(nativeText: "My name is", targetText: "O meu nome é", audioFileName: "nome_audio", imageName: "person.text.rectangle", category: .social),
+                Phrase(nativeText: "I am from", targetText: "Eu sou de", audioFileName: "deonde_audio", imageName: "globe.americas.fill", category: .social),
+                Phrase(nativeText: "I am new here", targetText: "Eu sou novo aqui", audioFileName: "sounovo_audio", imageName: "globe.americas.fill", category: .social),
                 Phrase(nativeText: "Nice to meet you", targetText: "Prazer em te conhecer", audioFileName: "prazer_audio", imageName: "hand.wave.fill", category: .social),
             ],
             description: "Learn how to introduce yourself to your new colleagues.",
             category: .social,
-            order: 1,
+            order: 1
             
         ),
         
@@ -248,7 +248,7 @@ struct LessonData {
             ],
             description: "Learn how to first talk to your new colleagues.",
             category: .social,
-            order: 2,
+            order: 2
             
         ),
         
@@ -263,7 +263,7 @@ struct LessonData {
             ],
             description: "Phrases to use during recess and playtime.",
             category: .social,
-            order: 3,
+            order: 3
             
         ),
         
@@ -308,7 +308,7 @@ struct LessonData {
             ],
             description: "Simple polite phrases to talk to others every day.",
             category: .social,
-            order: 4,
+            order: 4
         )
         
     ]

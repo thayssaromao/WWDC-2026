@@ -19,7 +19,7 @@ let package = Package(
             teamIdentifier: "ZP7U6722Y6",
             displayVersion: "1.0",
             bundleVersion: "1",
-            appIcon: .placeholder(icon: .bird),
+            appIcon: .placeholder(icon: .openBook),
             accentColor: .presetColor(.pink),
             supportedDeviceFamilies: [
                 .pad,
@@ -30,7 +30,12 @@ let package = Package(
                 .landscapeRight,
                 .landscapeLeft,
                 .portraitUpsideDown(.when(deviceFamilies: [.pad]))
-            ]
+            ],
+            capabilities: [
+                .microphone(purposeString: "Privacy - Microphone Usage Description: \"We need to hear your voice to check your pronunciation.\""),
+                .speechRecognition(purposeString: "Privacy - Speech Recognition Usage Description: \"We use speech recognition to validate your learning.\"")
+            ],
+            appCategory: .education
         )
     ],
     targets: [

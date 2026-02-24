@@ -1,40 +1,216 @@
 import SwiftUI
 
+
 struct LessonView: View {
     @StateObject var viewModel: LessonViewModel
-    
-    init(lesson: Lesson) {
+    @Environment(\.dismiss) private var dismiss
+    var onLessonCompleted: ((UUID) -> Void)?
+
+    init(lesson: Lesson, onLessonCompleted: ((UUID) -> Void)? = nil) {
         _viewModel = StateObject(wrappedValue: LessonViewModel(lesson: lesson))
+        self.onLessonCompleted = onLessonCompleted
     }
     
     var body: some View {
-        VStack (alignment: .leading){
-            Text(viewModel.lesson.description)
-                .font(.subheadline)
+        
+        ZStack {
+            
+            Color.white
+            VStack {
+                
+                if viewModel.isLastStep {
+                    LessonCompletionView {
+                        viewModel.completeLesson()
+                        
+                        onLessonCompleted?(viewModel.lesson.id)
+                        
+                        dismiss()
+                    }
+                } else if viewModel.isInQuizMode {
+                    LessonHeaderView(
+                        currentStep: viewModel.isLastStep
+                        ? (viewModel.lesson.phrases.count * 2) - 1
+                        : (viewModel.isInQuizMode ? viewModel.currentIndex + viewModel.lesson.phrases.count : viewModel.currentIndex),
+                        totalSteps: viewModel.lesson.phrases.count * 2
+                    )
+                    QuizView(viewModel: viewModel)
+                } else if let phrase = viewModel.currentPhrase {
+                    LessonHeaderView(
+                        currentStep: viewModel.isLastStep
+                        ? (viewModel.lesson.phrases.count * 2) - 1
+                        : (viewModel.isInQuizMode ? viewModel.currentIndex + viewModel.lesson.phrases.count : viewModel.currentIndex),
+                        totalSteps: viewModel.lesson.phrases.count * 2
+                    )
+                    PhraseStepView(viewModel: viewModel, phrase: phrase)
+                }
+                
+                Spacer()
+                
+                if viewModel.stepFinished {
+                    HStack {
+                        Button(viewModel.isLastStep ? "Finish" : "Next") {
+                            if viewModel.isLastStep {
+                                dismiss()
+                            } else {
+                                viewModel.next()
+                            }
+                        }
+                        .font(Font.custom("SF Compact", size: 25))
+                        .foregroundColor(.black)
+                        .padding(.horizontal, 54)
+                        .padding(.vertical, 15)
+                        .frame(width: 330, height: 60, alignment: .center)
+                        .background(Color(red: 0.85, green: 0.85, blue: 0.85))
+                        .cornerRadius(15.37934)
+                        .shadow(color: .black.opacity(0.25), radius: 3.84484, x: 0, y: 7.68967)
+                    }
+                    .padding()
+                }
+            }
+            .navigationTitle(viewModel.lesson.title)
+            .navigationBarTitleDisplayMode(.inline)
+        }
+    }
+}
+
+struct LessonHeaderView: View {
+    let currentStep: Int
+    let totalSteps: Int
+    
+    var body: some View {
+            
+        HStack(spacing: 10) {
+            ForEach(0..<totalSteps, id: \.self) { index in
+                Capsule()
+                    .fill(index <= currentStep ? Color.pink : Color.gray.opacity(0.3))
+                    .frame(height: 24)
+                    .shadow(color: .black.opacity(0.1), radius: 2, x: 0, y: 2)
+                    .animation(.spring(), value: currentStep)
+            }
+        }
+        .padding()
+    }
+}
+
+struct LessonCompletionView: View {
+    var onDismiss: () -> Void
+    
+    var body: some View {
+        VStack(spacing: 20) {
+            Spacer()
+            
+            Image(systemName: "checkmark.circle.fill")
+                .font(.system(size: 100))
+                .foregroundColor(.green)
+                .scaleEffect(1.2)
                 .padding()
             
-            List(viewModel.lesson.phrases) { phrase in
-                PhraseRow(phrase: phrase)
-            }
-            .listStyle(.plain)
+            Text("Lição Concluída!")
+                .font(.largeTitle)
+                .bold()
+                .foregroundColor(.black)
+            
+            Text("Você aprendeu novas frases hoje.")
+                .font(.body)
+                .foregroundColor(.gray)
+            
+            Spacer()
         }
-        .navigationTitle(viewModel.lesson.title)
-        .navigationBarTitleDisplayMode(.inline)
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Color.white)
+        .onAppear {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                onDismiss()
+            }
+        }
+    }
+}
+
+
+struct PhraseStepView: View {
+    @ObservedObject var viewModel: LessonViewModel
+    let phrase: Phrase
+    
+    var body: some View {
+        VStack(spacing: 20) {
+            Text("Hear the translation to:")
+                .font(.system(size: 34, weight: .regular))
+                .foregroundColor(.black)
+                .padding(.top, 40)
+            
+            Spacer().frame(height: 50)
+            
+            FlashCardView(phrase: phrase)
+            
+            Spacer().frame(height: 50)
+            
+            HiddenTranslationView(
+                text: phrase.targetText,
+                isRevealed: viewModel.stepFinished
+            )
+            
+            Spacer().frame(height: 50)
+            
+            AudioPillView(phrase: phrase) {
+                withAnimation {
+                    viewModel.stepFinished = true
+                }
+            }
+            
+            Spacer().frame(height: 70)
+            
+            //MicrophoneButton(viewModel: viewModel)
+            
+            Spacer()
+        }
+    }
+}
+
+struct HiddenTranslationView: View {
+    let text: String
+    var isRevealed: Bool
+    
+    var body: some View {
+        ZStack(alignment: .bottom) {
+            
+            if isRevealed {
+                Text(text)
+                    .font(.system(size: 40))
+                    .foregroundColor(.black)
+                    .padding(.bottom, 35)
+                    .transition(.opacity.combined(with: .move(edge: .bottom)))
+            }
+            
+            Path { path in
+                path.move(to: CGPoint(x: 0, y: 0))
+                path.addLine(to: CGPoint(x: 445.75, y: 0))
+            }
+            .stroke(
+                Color(red: 0.05, green: 0.66, blue: 0.87),
+                style: StrokeStyle(
+                    lineWidth: 3,
+                    lineCap: .round,
+                    dash: [8, 10]
+                )
+            )
+            .frame(width: 445.75, height: 2)
+        }
+        .frame(height: 60)
     }
 }
 
 #Preview {
     LessonView(lesson: Lesson(
-        title: "Needs",
-        phrases: [ Phrase(
-            nativeText: "Hi",
-            targetText: "Olá",
-            audioFileName: "hello_audio",
-            imageName: "hand.wave",
-            category: .social
-        ) ],
-        description: "Learn some basic needs in Portuguese",
-        category: .needs,
-        order: 2
+        title: "My body",
+        phrases: [
+            Phrase(nativeText: "I am in pain", targetText: "Estou com dor", audioFileName: "dor_audio", imageName: "bandage.fill", category: .selfCare),
+            Phrase(nativeText: "My head hurts", targetText: "Minha cabeça dói", audioFileName: "cabeca_audio", imageName: "cross.case.fill", category: .selfCare),
+            Phrase(nativeText: "My tummy hurts", targetText: "Minha barriga dói", audioFileName: "barriga_audio", imageName: "pills.fill", category: .selfCare),
+            Phrase(nativeText: "I am sick", targetText: "Estou doente", audioFileName: "doente_audio", imageName: "thermometer", category: .selfCare)
+        ],
+        description: "Learn to tell when something is wrong with your body.",
+        category: .selfCare,
+        order: 1
+        
     ) )
 }

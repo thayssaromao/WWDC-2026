@@ -45,6 +45,13 @@ final class HomeViewModel: ObservableObject {
         selectedLessonId = filteredLessons.first?.id
     }
     
+    func markLessonAsCompleted(id: UUID) {
+        if let index = lessons.firstIndex(where: { $0.id == id }) {
+            lessons[index].isCompleted = true
+            objectWillChange.send()
+        }
+    }
+    
 //    func loadMockData() {
 //        
 //        let phrase1 = Phrase(

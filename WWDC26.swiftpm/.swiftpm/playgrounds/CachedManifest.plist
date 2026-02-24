@@ -13,9 +13,17 @@
 		YW1JZGVudGlmaWVyIjpbIlpQN1U2NzIyWTYiXX0seyJkaXNwbGF5VmVyc2lv
 		biI6WyIxLjAiXX0seyJidW5kbGVWZXJzaW9uIjpbIjEiXX0seyJpT1NBcHBJ
 		bmZvIjpbeyJhY2NlbnRDb2xvciI6eyJwcmVzZXRDb2xvciI6eyJwcmVzZXRD
-		b2xvciI6eyJyYXdWYWx1ZSI6InBpbmsifX19LCJhcHBJY29uIjp7InBsYWNl
-		aG9sZGVyIjp7Imljb24iOnsicmF3VmFsdWUiOiJiaXJkIn19fSwiY2FwYWJp
-		bGl0aWVzIjpbXSwic3VwcG9ydGVkRGV2aWNlRmFtaWxpZXMiOlsicGFkIiwi
+		b2xvciI6eyJyYXdWYWx1ZSI6InBpbmsifX19LCJhcHBDYXRlZ29yeSI6eyJy
+		YXdWYWx1ZSI6InB1YmxpYy5hcHAtY2F0ZWdvcnkuZWR1Y2F0aW9uIn0sImFw
+		cEljb24iOnsicGxhY2Vob2xkZXIiOnsiaWNvbiI6eyJyYXdWYWx1ZSI6Im9w
+		ZW5Cb29rIn19fSwiY2FwYWJpbGl0aWVzIjpbeyJwdXJwb3NlIjoibWljcm9w
+		aG9uZSIsInB1cnBvc2VTdHJpbmciOiJQcml2YWN5IC0gTWljcm9waG9uZSBV
+		c2FnZSBEZXNjcmlwdGlvbjogXCJXZSBuZWVkIHRvIGhlYXIgeW91ciB2b2lj
+		ZSB0byBjaGVjayB5b3VyIHByb251bmNpYXRpb24uXCIifSx7InB1cnBvc2Ui
+		OiJzcGVlY2hSZWNvZ25pdGlvbiIsInB1cnBvc2VTdHJpbmciOiJQcml2YWN5
+		IC0gU3BlZWNoIFJlY29nbml0aW9uIFVzYWdlIERlc2NyaXB0aW9uOiBcIldl
+		IHVzZSBzcGVlY2ggcmVjb2duaXRpb24gdG8gdmFsaWRhdGUgeW91ciBsZWFy
+		bmluZy5cIiJ9XSwic3VwcG9ydGVkRGV2aWNlRmFtaWxpZXMiOlsicGFkIiwi
 		cGhvbmUiXSwic3VwcG9ydGVkSW50ZXJmYWNlT3JpZW50YXRpb25zIjpbeyJw
 		b3J0cmFpdCI6e319LHsibGFuZHNjYXBlUmlnaHQiOnt9fSx7ImxhbmRzY2Fw
 		ZUxlZnQiOnt9fSx7InBvcnRyYWl0VXBzaWRlRG93biI6eyJjb25kaXRpb24i
@@ -37,7 +45,7 @@
 		</data>
 		<key>manifestHash</key>
 		<data>
-		sHB6ubmgLXuflE8Ez8+pGfuqtFaKfd8vzCVJ/hvbOgU=
+		TEE+gAvLT+Nc2ItcrtCK8TEGrqMxtuq0qq9Kmk4ej4g=
 		</data>
 		<key>schemaVersion</key>
 		<integer>4</integer>

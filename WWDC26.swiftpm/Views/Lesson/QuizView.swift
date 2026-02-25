@@ -25,19 +25,10 @@ struct QuizView: View {
             
             Spacer()
             
-            Button(action: {
-                TextToSpeechManager.shared.speak(text: phrase.targetText, language: "pt-Br")
-            }) {
-                HStack {
-                    Image(systemName: "speaker.wave.2.fill")
+            AudioPillView(phrase: phrase) {
+                withAnimation {
+                    viewModel.stepFinished = true
                 }
-                .padding()
-                //.frame(width: 220, height: 40, alignment: .center)
-                .background(Color.blue)
-                .cornerRadius(9.60841)
-                .shadow(color: .black.opacity(0.25), radius: 0.76867, x: 0, y: 1.53735)
-                .clipShape(Capsule())
-                .foregroundColor(.white)
             }
             
             Spacer().frame(height: 30)
@@ -67,7 +58,7 @@ struct QuizView: View {
             
             Spacer()
             
-                LazyVGrid(columns: [GridItem(.adaptive(minimum: 100))], spacing: 10) {
+                LazyVGrid(columns: [GridItem(.adaptive(minimum: 100))], spacing: 15) {
                     ForEach(shuffledWords, id: \.self) { word in
                         Button(action: {
                             withAnimation {
@@ -76,28 +67,30 @@ struct QuizView: View {
                             }
                         }) {
                             Text(word)
-                                .bold()
+                                .font(Font.custom("SF Compact", size: 23))
                                 .padding()
-                                .frame(minWidth: 80)
+                                .frame(minWidth: 100)
                                 .background(Color.gray.opacity(0.3))
-                                .cornerRadius(15)
+                                .cornerRadius(20)
                                 .foregroundColor(.black)
                         }
                     }
                 }
                 .frame(maxWidth: 500)
-                .padding(.horizontal,40)
             
             Spacer()
             
-            Button("Verificar Resposta") {
+            Button("Check Answer") {
                 checkAnswer()
             }
-            .font(.headline)
-            .padding()
-            .background(Color.blue)
+            .font(Font.custom("SF Compact", size: 35))
             .foregroundColor(.white)
-            .cornerRadius(10)
+            .padding(.horizontal, 54)
+            .padding(.vertical, 15)
+            .frame(width: 420, height: 80, alignment: .center)
+            .background(Color(red: 0.5, green: 0.76, blue: 0.26))
+            .cornerRadius(30)
+            .shadow(color: Color(red: 0.3, green: 0.57, blue: 0.04), radius: 2.6, x: 0, y: 14.2735)
             
             Spacer()
         }
@@ -167,10 +160,6 @@ struct QuizView: View {
         }
     
     func checkAnswer() {
-//        let currentSentence = selectedWords.joined(separator: " ")
-//        if currentSentence == phrase.targetText {
-//            viewModel.stepFinished = true
-//        }
         showResultSheet = true
     }
 }

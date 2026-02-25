@@ -33,7 +33,7 @@ struct AudioPillView: View {
         }
         .padding(.horizontal, 96.3461)
         .padding(.vertical, 21.41024)
-        .frame(width: 441, height: 96, alignment: .center)
+        .frame(width: 300, height: 96, alignment: .center)
         .background(Color(red: 0.05, green: 0.66, blue: 0.87))
         .cornerRadius(28.54699)
         .shadow(color: Color(red: 0.05, green: 0.49, blue: 0.64), radius: 2.6, x: 0, y: 14.2735)

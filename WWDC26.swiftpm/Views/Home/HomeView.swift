@@ -1,7 +1,9 @@
 import SwiftUI
+import UIKit
 
 struct HomeView: View {
     @StateObject private var viewModel = HomeViewModel()
+    @Namespace private var animation
     
     let pattern: [CGFloat] = [ -180, 180, -180, 150]
     let itemHeight: CGFloat = 200
@@ -13,14 +15,30 @@ struct HomeView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                Color.white
+                Image(viewModel.selectedCategory.Background)
+                    .resizable()
+                    .scaledToFill()
                     .ignoresSafeArea()
                
                 VStack {
                     HStack {
-                        Image(systemName: "list.bullet")
-                            .font(.system(size: 24, weight: .bold))
-                            .foregroundColor(.black)
+                        ZStack {
+                            Rectangle()
+                              .foregroundColor(.clear)
+                              .frame(width: 70, height: 60)
+                              .background(viewModel.selectedCategory.categoryColor)
+                              .cornerRadius(15)
+                              .shadow(
+                                  color: viewModel.selectedCategory.categoryColor.darker(by: 0.3),
+                                  radius: 0,
+                                  x: 0,
+                                  y: 10
+                              )
+                            
+                            Image(systemName: "list.bullet")
+                                .font(.system(size: 34, weight: .bold))
+                                .foregroundColor(.white)
+                        }
                         
                         Spacer()
                     }
@@ -29,25 +47,33 @@ struct HomeView: View {
                         HStack(spacing: 0) {
                             ForEach(PhraseCategory.allCases) { category in
                                 Text(category.rawValue.lowercased())
-                                    .font(.system(size: 16, weight: .medium))
-                                    .frame(width: 80, height: 40)
+                                    .font(
+                                        .system(size: 22, weight: .bold, design: .rounded)
+                                    )
+                                    .foregroundColor(viewModel.selectedCategory == category ? Color.white : viewModel.selectedCategory.categoryColor)
+                                    .frame(width: 110, height: 40)
                                     .padding(.vertical, 8)
                                     .background(
-                                        viewModel.selectedCategory == category ? Color.gray.opacity(0.4) : Color.clear
+                                        ZStack {
+                                            if viewModel.selectedCategory == category {
+                                                Capsule()
+                                                    .fill(category.categoryColor)
+                                                    .matchedGeometryEffect(id: "liquidBackground", in: animation)
+                                            }
+                                        }
                                     )
-                                    .clipShape(Capsule())
                                     .onTapGesture {
-                                        withAnimation(.spring(response: 0.3, dampingFraction: 0.7)) {
+                                        withAnimation(.spring(response: 0.4, dampingFraction: 0.7, blendDuration: 0.5)) {
                                             viewModel.selectedCategory = category
                                         }
                                     }
                             }
                         }
                         .padding(10)
-                        .background(Color.gray.opacity(0.2))
+                        .background(Color.white.opacity(0.8))
                         .clipShape(Capsule())
                     )
-                    .padding(.top, 30)
+                    .padding()
                     
                     Spacer().frame(height: 30)
                     
@@ -85,7 +111,7 @@ struct HomeView: View {
                         .background(
                             TracingPath(count: enumeratedLessons.count, stepY: itemHeight)
                                 .stroke(
-                                    Color.gray.opacity(0.5),
+                                    viewModel.selectedCategory.categoryColor,
                                     style: StrokeStyle(lineWidth: 12, lineCap: .round, lineJoin: .round, dash: [20, 30])
                                 )
                         )
@@ -95,6 +121,24 @@ struct HomeView: View {
                 }
             }
         }
+    }
+}
+
+extension Color {
+    func darker(by amount: CGFloat = 0.3) -> Color {
+        let uiColor = UIColor(self)
+        var h: CGFloat = 0
+        var s: CGFloat = 0
+        var b: CGFloat = 0
+        var a: CGFloat = 0
+
+        if uiColor.getHue(&h, saturation: &s, brightness: &b, alpha: &a) {
+            return Color(hue: Double(h),
+                         saturation: Double(s),
+                         brightness: Double(max(b - amount, 0)),
+                         opacity: Double(a))
+        }
+        return self
     }
 }
 

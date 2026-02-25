@@ -18,6 +18,7 @@ struct LessonView: View {
             Color.white
             VStack {
                 
+                Spacer()
                 if viewModel.isLastStep {
                     LessonCompletionView {
                         viewModel.completeLesson()
@@ -46,7 +47,7 @@ struct LessonView: View {
                 
                 Spacer()
                 
-                if viewModel.stepFinished {
+                if viewModel.stepFinished && !viewModel.isInQuizMode && !viewModel.isLastStep {
                     HStack {
                         Button(viewModel.isLastStep ? "Finish" : "Next") {
                             if viewModel.isLastStep {
@@ -55,17 +56,18 @@ struct LessonView: View {
                                 viewModel.next()
                             }
                         }
-                        .font(Font.custom("SF Compact", size: 25))
-                        .foregroundColor(.black)
+                        .font(Font.custom("SF Compact", size: 40))
+                        .foregroundColor(.white)
                         .padding(.horizontal, 54)
                         .padding(.vertical, 15)
-                        .frame(width: 330, height: 60, alignment: .center)
-                        .background(Color(red: 0.85, green: 0.85, blue: 0.85))
-                        .cornerRadius(15.37934)
-                        .shadow(color: .black.opacity(0.25), radius: 3.84484, x: 0, y: 7.68967)
+                        .frame(width: 500, height: 90, alignment: .center)
+                        .background(Color(red: 0.5, green: 0.76, blue: 0.26))
+                        .cornerRadius(30)
+                        .shadow(color: Color(red: 0.3, green: 0.57, blue: 0.04), radius: 2.6, x: 0, y: 14.2735)
                     }
                     .padding()
                 }
+                Spacer()
             }
             .navigationTitle(viewModel.lesson.title)
             .navigationBarTitleDisplayMode(.inline)
@@ -79,15 +81,16 @@ struct LessonHeaderView: View {
     
     var body: some View {
             
-        HStack(spacing: 10) {
+        HStack(spacing: 15) {
             ForEach(0..<totalSteps, id: \.self) { index in
                 Capsule()
                     .fill(index <= currentStep ? Color.pink : Color.gray.opacity(0.3))
-                    .frame(height: 24)
+                    .frame(height: 20)
                     .shadow(color: .black.opacity(0.1), radius: 2, x: 0, y: 2)
                     .animation(.spring(), value: currentStep)
             }
         }
+        .padding(.horizontal ,40)
         .padding()
     }
 }
@@ -161,7 +164,6 @@ struct PhraseStepView: View {
             
             //MicrophoneButton(viewModel: viewModel)
             
-            Spacer()
         }
     }
 }

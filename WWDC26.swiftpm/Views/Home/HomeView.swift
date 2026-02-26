@@ -5,8 +5,10 @@ struct HomeView: View {
     @StateObject private var viewModel = HomeViewModel()
     @Namespace private var animation
     
-    let pattern: [CGFloat] = [ -180, 180, -180, 150]
-    let itemHeight: CGFloat = 200
+    let pattern: [CGFloat] = [-200, 200, -160, 200]
+    let itemHeight: CGFloat = 235
+    
+    @State private var showMenu = false
     
     func getOffset(for index: Int) -> CGFloat {
         return pattern[index % pattern.count]
@@ -19,26 +21,41 @@ struct HomeView: View {
                     .resizable()
                     .scaledToFill()
                     .ignoresSafeArea()
-               
+    
                 VStack {
+                    Spacer()
+                    
                     HStack {
-                        ZStack {
-                            Rectangle()
-                              .foregroundColor(.clear)
-                              .frame(width: 70, height: 60)
-                              .background(viewModel.selectedCategory.categoryColor)
-                              .cornerRadius(15)
-                              .shadow(
-                                  color: viewModel.selectedCategory.categoryColor.darker(by: 0.3),
-                                  radius: 0,
-                                  x: 0,
-                                  y: 10
-                              )
+
+                        HStack {
+                            Button(action: {
+                                showMenu = true
+                            }) {
+                                ZStack {
+                                    Rectangle()
+                                      .foregroundColor(.clear)
+                                      .frame(width: 70, height: 60)
+                                      .background(viewModel.selectedCategory.categoryColor)
+                                      .cornerRadius(15)
+                                      .shadow(
+                                          color: viewModel.selectedCategory.categoryColor.darker(by: 0.3),
+                                          radius: 0,
+                                          x: 0,
+                                          y: 10
+                                      )
+                                    
+                                    Image(systemName: "list.bullet")
+                                        .font(.system(size: 34, weight: .bold))
+                                        .foregroundColor(.white)
+                                }
+                            }
+                            .sheet(isPresented: $showMenu) {
+                                MenuView()
+                            }
                             
-                            Image(systemName: "list.bullet")
-                                .font(.system(size: 34, weight: .bold))
-                                .foregroundColor(.white)
+                            Spacer()
                         }
+                        .padding(.horizontal)
                         
                         Spacer()
                     }
@@ -75,7 +92,7 @@ struct HomeView: View {
                     )
                     .padding()
                     
-                    Spacer().frame(height: 30)
+                    Spacer()
                     
                     if viewModel.filteredLessons.isEmpty {
                         Text("Nenhuma lição encontrada")
@@ -109,18 +126,57 @@ struct HomeView: View {
                         }
                         .frame(maxWidth: .infinity)
                         .background(
-                            TracingPath(count: enumeratedLessons.count, stepY: itemHeight)
+                            TracingPath(count: enumeratedLessons.count, stepY: itemHeight, pattern: pattern)
                                 .stroke(
                                     viewModel.selectedCategory.categoryColor,
-                                    style: StrokeStyle(lineWidth: 12, lineCap: .round, lineJoin: .round, dash: [20, 30])
+                                    style: StrokeStyle(lineWidth: 16, lineCap: .round, lineJoin: .round, dash: [60, 55])
                                 )
                         )
                         .padding(.vertical, 50)
                     }
-                    Spacer()
+                }
+                .padding()
+            }
+        }
+    }
+}
+
+struct MenuView: View {
+    @Environment(\.dismiss) var dismiss
+    
+    var body: some View {
+        NavigationStack {
+            List {
+                Section(header: Text("Aprendizado")) {
+                    HStack {
+                        Label("Língua Atual", systemImage: "globe")
+                        Spacer()
+                        Text("Português")
+                            .foregroundColor(.gray)
+                    }
+                }
+                
+                Section(header: Text("Sobre")) {
+                    NavigationLink {
+                        Text("Desenvolvido por...")
+                    } label: {
+                        Label("Créditos", systemImage: "person.2.fill")
+                    }
+                    
+                    Label("Versão 1.0", systemImage: "info.circle")
+                }
+            }
+            .navigationTitle("Menu")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button("Fechar") {
+                        dismiss()
+                    }
                 }
             }
         }
+        .presentationDetents([.medium, .large])
     }
 }
 
@@ -134,9 +190,9 @@ extension Color {
 
         if uiColor.getHue(&h, saturation: &s, brightness: &b, alpha: &a) {
             return Color(hue: Double(h),
-                         saturation: Double(s),
-                         brightness: Double(max(b - amount, 0)),
-                         opacity: Double(a))
+                 saturation: Double(s),
+                 brightness: Double(max(b - amount, 0)),
+                 opacity: Double(a))
         }
         return self
     }
@@ -145,7 +201,7 @@ extension Color {
 struct TracingPath: Shape {
     let count: Int
     let stepY: CGFloat
-    let pattern: [CGFloat] = [ -180, 180, -180, 150]
+    let pattern: [CGFloat]
 
     func path(in rect: CGRect) -> Path {
         var path = Path()
@@ -161,23 +217,49 @@ struct TracingPath: Shape {
 
         path.move(to: currentPoint)
 
-        for i in 1..<count {
-            let nextPoint = CGPoint(
-                x: centerX + pattern[i % pattern.count],
-                y: startY - CGFloat(i) * stepY
-            )
-
-            let cp1 = CGPoint(
-                x: currentPoint.x,
-                y: currentPoint.y - stepY / 0.78
-            )
-            let cp2 = CGPoint(
-                x: nextPoint.x,
-                y: nextPoint.y + stepY / 1
-            )
-
-            path.addCurve(to: nextPoint, control1: cp1, control2: cp2)
-            currentPoint = nextPoint
+        for i in 0..<count {
+            
+            if i < count - 1 {
+                let nextPoint = CGPoint(
+                    x: centerX + pattern[(i + 1) % pattern.count],
+                    y: startY - CGFloat(i + 1) * stepY
+                )
+                
+                var cp1: CGPoint
+                var cp2: CGPoint
+                
+                switch i {
+                case 0:
+                    cp1 = CGPoint(x: currentPoint.x + 350, y: currentPoint.y)
+                    cp2 = CGPoint(x: nextPoint.x, y: nextPoint.y + 150)
+                    
+                case 1:
+                    cp1 = CGPoint(x: currentPoint.x, y: currentPoint.y - 200)
+                    cp2 = CGPoint(x: nextPoint.x + 150, y: nextPoint.y + 20)
+                    
+                case 2:
+                    cp1 = CGPoint(x: currentPoint.x - 300, y: currentPoint.y - 300)
+                    cp2 = CGPoint(x: nextPoint.x - 180, y: nextPoint.y - 250)
+                    
+                default:
+                    cp1 = CGPoint(x: currentPoint.x, y: currentPoint.y - stepY / 2)
+                    cp2 = CGPoint(x: nextPoint.x, y: nextPoint.y + stepY / 2)
+                }
+                
+                path.addCurve(to: nextPoint, control1: cp1, control2: cp2)
+                currentPoint = nextPoint
+            }
+            
+            if i == count - 1 {
+                let exitPoint = CGPoint(
+                    x: rect.width + 100, 
+                    y: currentPoint.y - 100
+                )
+                
+                let cpExit = CGPoint(x: currentPoint.x + 150, y: currentPoint.y + 200)
+                
+                path.addQuadCurve(to: exitPoint, control: cpExit)
+            }
         }
 
         return path

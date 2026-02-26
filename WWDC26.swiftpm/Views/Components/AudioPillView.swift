@@ -19,7 +19,7 @@ struct AudioPillView: View {
                 }
             }) {
                 Image(systemName: isSpeaking ? "speaker.wave.3" : "speaker.wave.2")
-                    .font(.system(size: 40))
+                    .font(.system(size: 40, design: .rounded))
                     .foregroundColor(.white)
                     .frame(width: 45, height: 45)
                     .scaleEffect(isSpeaking ? 1.1 : 1.0)

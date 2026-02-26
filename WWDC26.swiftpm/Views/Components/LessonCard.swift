@@ -7,7 +7,7 @@ struct LessonCard: View {
     
     var body: some View {
         ZStack {
-            VStack(spacing: 20) {
+            VStack(spacing: 25) {
                 VStack(alignment: .center, spacing: 9.06415) {
                     Image(systemName: isUnlocked ? lesson.category.iconName : "lock.fill")
                         .resizable()
@@ -16,20 +16,20 @@ struct LessonCard: View {
                       .foregroundColor(Color.white)
                 }
                 .padding(10)
-                .frame(width: 120, height: 120, alignment: .center)
+                .frame(width: 140, height: 140, alignment: .center)
                 .background(isUnlocked ? lesson.category.categoryColor : lesson.category.categoryColorLocked)
-                .cornerRadius(60)
+                .cornerRadius(80)
                 .shadow(color: .black.opacity(0.25), radius: 2, x: 0, y: 4)
                 .overlay(
-                  RoundedRectangle(cornerRadius: 60)
+                  RoundedRectangle(cornerRadius: 80)
                     .inset(by: -1)
                     .stroke(.white, lineWidth: 6)
                 )
-                HStack(alignment: .center, spacing: 36.60433) {
+                
+                HStack(alignment: .center) {
                     Text(lesson.title)
                         .font(
-                        Font.custom("SF Pro Rounded", size: 25)
-                        .weight(.bold)
+                            .system(size: 25, weight: .bold, design: .rounded)
                         )
                         .multilineTextAlignment(.center)
                         .foregroundColor(.white)
@@ -46,20 +46,20 @@ struct LessonCard: View {
         .animation(.spring(response: 0.4, dampingFraction: 0.6), value: isSelected)
     }
 }
-#Preview {
-    LessonCard(lesson: Lesson(
-        title: "Needs",
-        phrases: [ Phrase(
-            nativeText: "Hi",
-            targetText: "Olá",
-            audioFileName: "hello_audio",
-            imageName: "hand.wave",
-            category: .social
-        ) ],
-        description: "Learn some basic needs in Portuguese",
-        category: .needs,
-        isCompleted: false,
-        order: 2
-        
-    ), isSelected: true, isUnlocked: false )
-}
+//#Preview {
+//    LessonCard(lesson: Lesson(
+//        title: "Needs",
+//        phrases: [ Phrase(
+//            nativeText: "Hi",
+//            targetText: "Olá",
+//            audioFileName: "hello_audio",
+//            imageName: "hand.wave",
+//            category: .social
+//        ) ],
+//        description: "Learn some basic needs in Portuguese",
+//        category: .needs,
+//        isCompleted: false,
+//        order: 2
+//        
+//    ), isSelected: true, isUnlocked: false )
+//}

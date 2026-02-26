@@ -14,11 +14,13 @@ struct LessonView: View {
     var body: some View {
         
         ZStack {
+            Image("BG")
+                .resizable()
+                .ignoresSafeArea()
             
-            Color.white
             VStack {
-                
                 Spacer()
+                
                 if viewModel.isLastStep {
                     LessonCompletionView {
                         viewModel.completeLesson()
@@ -35,6 +37,7 @@ struct LessonView: View {
                         totalSteps: viewModel.lesson.phrases.count * 2
                     )
                     QuizView(viewModel: viewModel)
+                    
                 } else if let phrase = viewModel.currentPhrase {
                     LessonHeaderView(
                         currentStep: viewModel.isLastStep
@@ -56,7 +59,9 @@ struct LessonView: View {
                                 viewModel.next()
                             }
                         }
-                        .font(Font.custom("SF Compact", size: 40))
+                        .font(
+                            .system(size: 40, weight: .bold, design: .rounded)
+                        )
                         .foregroundColor(.white)
                         .padding(.horizontal, 54)
                         .padding(.vertical, 15)
@@ -137,22 +142,22 @@ struct PhraseStepView: View {
     var body: some View {
         VStack(spacing: 20) {
             Text("Hear the translation to:")
-                .font(.system(size: 34, weight: .regular))
+                .font(.system(size: 35, weight: .bold, design: .rounded))
                 .foregroundColor(.black)
                 .padding(.top, 40)
             
-            Spacer().frame(height: 50)
+            Spacer()
             
             FlashCardView(phrase: phrase)
             
-            Spacer().frame(height: 50)
+            Spacer()
             
             HiddenTranslationView(
                 text: phrase.targetText,
                 isRevealed: viewModel.stepFinished
             )
             
-            Spacer().frame(height: 50)
+            Spacer()
             
             AudioPillView(phrase: phrase) {
                 withAnimation {
@@ -160,10 +165,8 @@ struct PhraseStepView: View {
                 }
             }
             
-            Spacer().frame(height: 70)
-            
-            //MicrophoneButton(viewModel: viewModel)
-            
+            Spacer()
+                        
         }
     }
 }
@@ -177,7 +180,7 @@ struct HiddenTranslationView: View {
             
             if isRevealed {
                 Text(text)
-                    .font(.system(size: 40))
+                    .font(.system(size: 40, weight: .medium, design: .rounded))
                     .foregroundColor(.black)
                     .padding(.bottom, 35)
                     .transition(.opacity.combined(with: .move(edge: .bottom)))
@@ -190,29 +193,29 @@ struct HiddenTranslationView: View {
             .stroke(
                 Color(red: 0.05, green: 0.66, blue: 0.87),
                 style: StrokeStyle(
-                    lineWidth: 3,
+                    lineWidth: 8,
                     lineCap: .round,
-                    dash: [8, 10]
+                    dash: [28, 40]
                 )
             )
-            .frame(width: 445.75, height: 2)
+            .frame(width: 445, height: 2)
         }
         .frame(height: 60)
     }
 }
 
-#Preview {
-    LessonView(lesson: Lesson(
-        title: "My body",
-        phrases: [
-            Phrase(nativeText: "I am in pain", targetText: "Estou com dor", audioFileName: "dor_audio", imageName: "bandage.fill", category: .selfCare),
-            Phrase(nativeText: "My head hurts", targetText: "Minha cabeça dói", audioFileName: "cabeca_audio", imageName: "cross.case.fill", category: .selfCare),
-            Phrase(nativeText: "My tummy hurts", targetText: "Minha barriga dói", audioFileName: "barriga_audio", imageName: "pills.fill", category: .selfCare),
-            Phrase(nativeText: "I am sick", targetText: "Estou doente", audioFileName: "doente_audio", imageName: "thermometer", category: .selfCare)
-        ],
-        description: "Learn to tell when something is wrong with your body.",
-        category: .selfCare,
-        order: 1
-        
-    ) )
-}
+//#Preview {
+//    LessonView(lesson: Lesson(
+//        title: "My body",
+//        phrases: [
+//            Phrase(nativeText: "I am in pain", targetText: "Estou com dor", audioFileName: "dor_audio", imageName: "bandage.fill", category: .selfCare),
+//            Phrase(nativeText: "My head hurts", targetText: "Minha cabeça dói", audioFileName: "cabeca_audio", imageName: "cross.case.fill", category: .selfCare),
+//            Phrase(nativeText: "My tummy hurts", targetText: "Minha barriga dói", audioFileName: "barriga_audio", imageName: "pills.fill", category: .selfCare),
+//            Phrase(nativeText: "I am sick", targetText: "Estou doente", audioFileName: "doente_audio", imageName: "thermometer", category: .selfCare)
+//        ],
+//        description: "Learn to tell when something is wrong with your body.",
+//        category: .selfCare,
+//        order: 1
+//        
+//    ) )
+//}

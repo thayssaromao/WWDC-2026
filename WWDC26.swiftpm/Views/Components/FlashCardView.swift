@@ -12,7 +12,7 @@ struct FlashCardView: View {
                 .frame(width: 100, height: 100)
             
             Text(phrase.nativeText)
-                .font(.system(size: 24, weight: .medium))
+                .font(.system(size: 24, weight: .bold, design: .rounded))
                 .foregroundColor(.white)
         }
         .frame(width: 260, height: 260)

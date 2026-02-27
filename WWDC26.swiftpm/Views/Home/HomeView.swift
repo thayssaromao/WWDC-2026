@@ -147,30 +147,41 @@ struct MenuView: View {
     var body: some View {
         NavigationStack {
             List {
-                Section(header: Text("Aprendizado")) {
+                Section(header: Text("Apprenticeship")) {
                     HStack {
-                        Label("Língua Atual", systemImage: "globe")
+                        Label("Current Language", systemImage: "globe")
                         Spacer()
                         Text("Português")
                             .foregroundColor(.gray)
                     }
                 }
                 
-                Section(header: Text("Sobre")) {
+                Section(header: Text("About")) {
                     NavigationLink {
-                        Text("Desenvolvido por...")
+                        VStack{
+                            Text("Created by:")
+                                .font(.system(size: 30, weight: .bold,design: .rounded))
+                            
+                            Text("Thayssa Romão")
+                            Image("euuuu")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 180, height: 180)
+                            Spacer()
+                        }
+            
                     } label: {
-                        Label("Créditos", systemImage: "person.2.fill")
+                        Label("Credits", systemImage: "person.2.fill")
                     }
                     
-                    Label("Versão 1.0", systemImage: "info.circle")
+                    Label("Version 1.0", systemImage: "info.circle")
                 }
             }
             .navigationTitle("Menu")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
-                    Button("Fechar") {
+                    Button("Close") {
                         dismiss()
                     }
                 }

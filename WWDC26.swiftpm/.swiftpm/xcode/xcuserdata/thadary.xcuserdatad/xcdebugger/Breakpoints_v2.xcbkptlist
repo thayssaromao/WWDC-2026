@@ -47,6 +47,36 @@
             endingLineNumber = "189"
             landmarkName = "body"
             landmarkType = "24">
+            <Locations>
+               <Location
+                  uuid = "FB92DE3A-5A6A-42E0-AC86-5BFA53027EAD - 78f4cd168caf40c7"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 () -&gt; SwiftUI.TupleView&lt;(Swift.Optional&lt;&lt;&lt;opaque return type of SwiftUI.View.transition&lt;&#x3c4;_0_0 where &#x3c4;_1_0: SwiftUI.Transition&gt;(&#x3c4;_1_0) -&gt; some&gt;&gt;.0&gt;, &lt;&lt;opaque return type of SwiftUI.View.frame(width: Swift.Optional&lt;CoreGraphics.CGFloat&gt;, height: Swift.Optional&lt;CoreGraphics.CGFloat&gt;, alignment: SwiftUI.Alignment) -&gt; some&gt;&gt;.0)&gt; in My_App.HiddenTranslationView.body.getter : some"
+                  moduleName = "My App.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/thadary/Developer/WWDC-2026/WWDC26.swiftpm/Views/Lesson/LessonView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "189"
+                  endingLineNumber = "189">
+               </Location>
+               <Location
+                  uuid = "FB92DE3A-5A6A-42E0-AC86-5BFA53027EAD - 8daa3a79b2d71f74"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (inout SwiftUI.Path) -&gt; () in closure #1 () -&gt; SwiftUI.TupleView&lt;(Swift.Optional&lt;&lt;&lt;opaque return type of SwiftUI.View.transition&lt;&#x3c4;_0_0 where &#x3c4;_1_0: SwiftUI.Transition&gt;(&#x3c4;_1_0) -&gt; some&gt;&gt;.0&gt;, &lt;&lt;opaque return type of SwiftUI.View.frame(width: Swift.Optional&lt;CoreGraphics.CGFloat&gt;, height: Swift.Optional&lt;CoreGraphics.CGFloat&gt;, alignment: SwiftUI.Alignment) -&gt; some&gt;&gt;.0)&gt; in My_App.HiddenTranslationView.body.getter : some"
+                  moduleName = "My App.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/thadary/Developer/WWDC-2026/WWDC26.swiftpm/Views/Lesson/LessonView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "190"
+                  endingLineNumber = "190">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

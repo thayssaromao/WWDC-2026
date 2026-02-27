@@ -9,130 +9,121 @@ struct QuizView: View {
     @State private var selectedWords: [String] = []
     
     var body: some View {
-        VStack(spacing: 20) {
+        ZStack {
+            Image("BG")
+                .resizable()
+                .ignoresSafeArea()
             
-            Text("Choose the translation to:")
-              .font(
-                Font.custom("Montserrat", size: 34)
-                  .weight(.medium)
-                
-              )
-              .padding(.top, 40)
-              .foregroundColor(.black)
-            Spacer()
-            
-            FlashCardView(phrase: phrase)
-            
-            Spacer()
-            
-            AudioPillView(phrase: phrase) {
-                withAnimation {
-                    viewModel.stepFinished = true
-                }
-            }
-            
-            Spacer().frame(height: 30)
-            
-            HStack {
-                if selectedWords.isEmpty {
-                    Text("Select the words below")
-                        .foregroundColor(.gray.opacity(0.5))
-                } else {
-                    ForEach(selectedWords, id: \.self) { word in
-                        Text(word)
-                            .padding()
-                            .background(Color.blue.opacity(0.2))
-                            .cornerRadius(10)
-                            .onTapGesture {
-                                withAnimation {
-                                    selectedWords.removeAll { $0 == word }
-                                    shuffledWords.append(word)
-                                }
-                            }
-                    }
-                }
-            }
-            .frame(height: 90)
-            .frame(maxWidth: .infinity)
-            .background(Color.gray.opacity(0.1))
-            
-            Spacer()
-            
-                LazyVGrid(columns: [GridItem(.adaptive(minimum: 100))], spacing: 15) {
-                    ForEach(shuffledWords, id: \.self) { word in
-                        Button(action: {
-                            withAnimation {
-                                selectedWords.append(word)
-                                shuffledWords.removeAll { $0 == word }
-                            }
-                        }) {
-                            Text(word)
-                                .font(Font.custom("SF Compact", size: 23))
-                                .padding()
-                                .frame(minWidth: 100)
-                                .background(Color.gray.opacity(0.3))
-                                .cornerRadius(20)
-                                .foregroundColor(.black)
-                        }
-                    }
-                }
-                .frame(maxWidth: 500)
-            
-            Spacer()
-            
-            Button("Check Answer") {
-                checkAnswer()
-            }
-            .font(Font.custom("SF Compact", size: 35))
-            .foregroundColor(.white)
-            .padding(.horizontal, 54)
-            .padding(.vertical, 15)
-            .frame(width: 420, height: 80, alignment: .center)
-            .background(Color(red: 0.5, green: 0.76, blue: 0.26))
-            .cornerRadius(30)
-            .shadow(color: Color(red: 0.3, green: 0.57, blue: 0.04), radius: 2.6, x: 0, y: 14.2735)
-            
-            Spacer()
-        }
-        
-        .onAppear {
-            setupQuiz()
-        }
-        .onChange(of: viewModel.currentIndex) { _ in
-            selectedWords.removeAll()
-            setupQuiz()
-        }
-        .sheet(isPresented: $showResultSheet) {
             VStack(spacing: 20) {
-                let isCorrect = selectedWords.joined(separator: " ") == phrase.targetText
+                Text("Choose the translation to:")
+                  .font(.system(size: 34, weight: .bold, design: .rounded))
+                  .padding(.top, 40)
+                  .foregroundColor(.black)
                 
-                Text(isCorrect ? "Parabéns!" : "Quase lá")
-                    .font(.largeTitle)
-                    .foregroundColor(isCorrect ? .green : .red)
+                Spacer()
                 
-                Text(isCorrect ? "Você acertou a frase!" : "A resposta correta é: \(phrase.targetText)")
-                    .padding()
+                FlashCardView(phrase: phrase)
                 
-                Button("Next") {
-                    showResultSheet = false
-                    if isCorrect {
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                            viewModel.stepFinished = true
-                            viewModel.next()
-                        }
-                    } else {
-                        selectedWords.removeAll()
-                        setupQuiz()
+                Spacer()
+                
+                AudioPillView(phrase: phrase) {
+                    withAnimation {
+                        viewModel.stepFinished = true
                     }
                 }
-                .padding()
-                .background(Color.blue)
+                
+                Spacer()
+                
+                HStack {
+                    if selectedWords.isEmpty {
+                        Text("Select the words below")
+                            .font(.system(size: 20))
+                            .foregroundColor(.gray.opacity(0.8))
+                    } else {
+                        ForEach(selectedWords, id: \.self) { word in
+                            Text(word)
+                                .font(.system(size:25, weight: .medium, design: .rounded))
+                                .padding()
+                                .background(Color.blue.opacity(0.2))
+                                .cornerRadius(10)
+                                .onTapGesture {
+                                    withAnimation {
+                                        selectedWords.removeAll { $0 == word }
+                                        shuffledWords.append(word)
+                                    }
+                                }
+                        }
+                    }
+                }
+                .padding(.horizontal)
+                .padding(.vertical, 40)
+                .frame(width: 700, alignment: .center)
+                .background(Color(red: 0.9, green: 0.9, blue: 0.9))
+                .cornerRadius(40)
+                .shadow(color: .black.opacity(0.35), radius: 2, x: 0, y: 4)
+                
+                Spacer()
+                
+                    LazyVGrid(columns: [GridItem(.adaptive(minimum: 130))], spacing: 15) {
+                        ForEach(shuffledWords, id: \.self) { word in
+                            Button(action: {
+                                withAnimation {
+                                    selectedWords.append(word)
+                                    shuffledWords.removeAll { $0 == word }
+                                }
+                            }) {
+                                Text(word)
+                                    .font(.system(size: 25, weight: .medium, design: .rounded))
+                                    .padding()
+                                    .lineLimit(1)
+                                    .background(Color.gray.opacity(0.3))
+                                    .cornerRadius(20)
+                                    .foregroundColor(.black)
+                            }
+                        }
+                    }
+                    .frame(maxWidth: 590)
+                
+                Spacer()
+                
+                Button("Check Answer") {
+                    checkAnswer()
+                }
+                .font(.system(size: 35, weight: .medium, design: .rounded))
                 .foregroundColor(.white)
-                .cornerRadius(10)
+                .padding(.horizontal, 54)
+                .padding(.vertical, 15)
+                .frame(width: 420, height: 80, alignment: .center)
+                .background(Color(red: 0.5, green: 0.76, blue: 0.26))
+                .cornerRadius(30)
+                .shadow(color: Color(red: 0.3, green: 0.57, blue: 0.04), radius: 2.6, x: 0, y: 14.2735)
+                
+                Spacer()
             }
-            //.presentationDetents([.fraction(0.4)]) // Sheet ocupa 40% da tela
+            
+            .onAppear {
+                setupQuiz()
+            }
+            .onChange(of: viewModel.currentIndex) { 
+                selectedWords.removeAll()
+                setupQuiz()
+            }
+            .sheet(isPresented: $showResultSheet) {
+                let isCorrect = selectedWords.joined(separator: " ") == phrase.targetText
+                    
+                    QuizResultSheetView(
+                        isCorrect: isCorrect,
+                        targetText: phrase.targetText,
+                        viewModel: viewModel,
+                        showResultSheet: $showResultSheet,
+                        selectedWords: $selectedWords,
+                        onRetry: {
+                            setupQuiz()
+                        }
+                    )
+            }
         }
-    }
+        }
     
     func setupQuiz() {
             let targetText = phrase.targetText
@@ -161,6 +152,59 @@ struct QuizView: View {
     
     func checkAnswer() {
         showResultSheet = true
+    }
+}
+
+struct QuizResultSheetView: View {
+    let isCorrect: Bool
+    let targetText: String
+    
+    @ObservedObject var viewModel: LessonViewModel
+    @Binding var showResultSheet: Bool
+    @Binding var selectedWords: [String]
+    
+    var onRetry: () -> Void
+    
+    var body: some View {
+        VStack(spacing: 20) {
+            Spacer()
+            Text(isCorrect ? "Congratulations!" : "Almost there!")
+                .font(.system(size: 40, weight: .bold, design: .rounded))
+            
+                Image(isCorrect ? "rightImg" : "almostImg")
+                    .resizable()
+                    .scaledToFit()
+                    .frame( height: 400)
+            
+                Text(isCorrect ? "You got the sentence right." : "Try again, you can do it!")
+                    .font(.system(size: 25, weight: .semibold, design: .rounded))
+                    .padding()
+            
+            Button(isCorrect ? "Next" : "Try Again!") {
+                showResultSheet = false
+                
+                if isCorrect {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                        viewModel.stepFinished = true
+                        viewModel.next()
+                    }
+                } else {
+                    selectedWords.removeAll()
+                    onRetry()
+                }
+            }
+            .font(.system(size: 35, weight: .medium, design: .rounded))
+            .foregroundColor(.white)
+            .padding(.horizontal, 54)
+            .padding(.vertical, 15)
+            .frame(width: 420, height: 80, alignment: .center)
+            .background(isCorrect ? Color.GREEN : Color.BLUE)
+            .cornerRadius(30)
+            .shadow(color: isCorrect ? Color.GREEN.darker() : Color.BLUE.darker(), radius: 2.6, x: 0, y: 14.2735)
+            Spacer()
+        }
+        .padding()
+        // .presentationDetents([.fraction(0.4)])
     }
 }
 

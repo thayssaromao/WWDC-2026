@@ -11,19 +11,6 @@ struct LessonData {
     
     static let allLessons: [Lesson] = [
         // MARK: SELF-CARE (ME)
-        Lesson(
-            title: "My body",
-            phrases: [
-                Phrase(nativeText: "I am in pain", targetText: "Estou com dor", audioFileName: "dor_audio", imageName: "bandage.fill", category: .selfCare),
-                Phrase(nativeText: "My head hurts", targetText: "Minha cabeça dói", audioFileName: "cabeca_audio", imageName: "cross.case.fill", category: .selfCare),
-                Phrase(nativeText: "My tummy hurts", targetText: "Minha barriga dói", audioFileName: "barriga_audio", imageName: "pills.fill", category: .selfCare),
-                Phrase(nativeText: "I am sick", targetText: "Estou doente", audioFileName: "doente_audio", imageName: "thermometer", category: .selfCare)
-            ],
-            description: "Learn to tell when something is wrong with your body.",
-            category: .selfCare,
-            order: 1
-            
-        ),
                 
         Lesson(
             title: "I am",
@@ -37,9 +24,45 @@ struct LessonData {
             ],
             description: "Words to express your feelings and temperature.",
             category: .selfCare,
-            order: 2
+            order: 1
            
         ),
+        Lesson(
+                    title: "My body",
+                    phrases: [
+                        Phrase(
+                            nativeText: "I have a fever",
+                            targetText: "Estou com febre",
+                            audioFileName: "febre_audio",
+                            imageName: "thermometer",
+                            category: .selfCare
+                        ),
+                        Phrase(
+                            nativeText: "My throat hurts",
+                            targetText: "Minha garganta dói",
+                            audioFileName: "garganta_audio",
+                            imageName: "cross.fill",
+                            category: .selfCare
+                        ),
+                        Phrase(
+                            nativeText: "My back hurts",
+                            targetText: "Minhas costas doem",
+                            audioFileName: "costas_audio",
+                            imageName: "bandage.fill",
+                            category: .selfCare
+                        ),
+                        Phrase(
+                            nativeText: "I need a doctor",
+                            targetText: "Preciso de um médico",
+                            audioFileName: "medico_audio",
+                            imageName: "stethoscope",
+                            category: .selfCare
+                        )
+                    ],
+                    description: "Learn to tell when something is wrong with your body.",
+                    category: .selfCare,
+                    order: 2
+                ),
         
         Lesson(
             title: "I Need Rest",
@@ -147,6 +170,18 @@ struct LessonData {
             order: 1
         ),
         Lesson(
+            title: "My Needs",
+            phrases: [
+                Phrase(nativeText: "I am hungry", targetText: "Estou com fome", audioFileName: "fome_audio", imageName: "fork.knife", category: .needs),
+                Phrase(nativeText: "I am thirsty", targetText: "Estou com sede", audioFileName: "sede_audio", imageName: "drop.fill", category: .needs),
+                Phrase(nativeText: "Can I go to the bathroom?", targetText: "Posso ir ao banheiro?", audioFileName: "banheiro_audio", imageName: "toilet.fill", category: .needs)
+            ],
+            description: "Essential things you need every day.",
+            category: .needs,
+            order: 2
+            
+        ),
+        Lesson(
             title: "I Need to Stop",
             phrases: [
                 Phrase(
@@ -180,7 +215,7 @@ struct LessonData {
             ],
             description: "Say when you feel uncomfortable or need a break.",
             category: .needs,
-            order: 2
+            order: 3
         ),
         
         Lesson(
@@ -193,18 +228,6 @@ struct LessonData {
                 Phrase(nativeText: "Can you repeat slowly?", targetText: "Pode repetir devagar?", audioFileName: "repetir_audio", imageName: "arrow.triangle.2.circlepath", category: .needs)
             ],
             description: "How to ask for help at school and understand it better.",
-            category: .needs,
-            order: 3
-            
-        ),
-        Lesson(
-            title: "My Needs",
-            phrases: [
-                Phrase(nativeText: "I am hungry", targetText: "Estou com fome", audioFileName: "fome_audio", imageName: "fork.knife", category: .needs),
-                Phrase(nativeText: "I am thirsty", targetText: "Estou com sede", audioFileName: "sede_audio", imageName: "drop.fill", category: .needs),
-                Phrase(nativeText: "Can I go to the bathroom?", targetText: "Posso ir ao banheiro?", audioFileName: "banheiro_audio", imageName: "toilet.fill", category: .needs)
-            ],
-            description: "Essential things you need every day.",
             category: .needs,
             order: 4
             

@@ -16,6 +16,7 @@ let package = Package(
         .iOSApplication(
             name: "HiWay",
             targets: ["AppModule"],
+            bundleIdentifier: "com.thayssaromao.Hiway",
             teamIdentifier: "ZP7U6722Y6",
             displayVersion: "1.0",
             bundleVersion: "1",

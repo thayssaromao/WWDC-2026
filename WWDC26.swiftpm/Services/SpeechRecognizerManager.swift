@@ -78,7 +78,6 @@ class SpeechRecognizerManager: ObservableObject {
     
     func requestAuthorization() {
         SFSpeechRecognizer.requestAuthorization { authStatus in
-            // Lidar com status se necessário
         }
     }
 }

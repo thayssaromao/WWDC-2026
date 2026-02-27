@@ -62,10 +62,12 @@ struct OnboardingScene2: View {
                 )
                 .offset(y:320)
                 
-                Button(action: action) {
+                Button(action: {
+                    AudioService.shared.playAudio(named: "click")
+                    action()
+                }) {
                     Image(systemName: "arrow.forward")
-                        .font(.system(size: 50, weight: .bold, design: .rounded)
-                        )
+                        .font(.system(size: 50, weight: .bold, design: .rounded))
                         .foregroundColor(.white)
                         .padding(.horizontal, 96.3461)
                         .padding(.vertical, 21.41024)

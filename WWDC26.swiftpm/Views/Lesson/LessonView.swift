@@ -53,6 +53,7 @@ struct LessonView: View {
                 if viewModel.stepFinished && !viewModel.isInQuizMode && !viewModel.isLastStep {
                     HStack {
                         Button(action: {
+                            AudioService.shared.playAudio(named: "click")
                             if viewModel.isLastStep {
                                 dismiss()
                             } else {
@@ -62,7 +63,7 @@ struct LessonView: View {
                             Text(viewModel.isLastStep ? "Finish" : "Next")
                                 .font(.system(size: 40, weight: .bold, design: .rounded))
                                 .foregroundColor(.white)
-                                .frame(width: 500, height: 90, alignment: .center) // O frame DEVE ficar no Text
+                                .frame(width: 500, height: 90, alignment: .center)
                                 .background(Color(red: 0.5, green: 0.76, blue: 0.26))
                                 .cornerRadius(30)
                                 .shadow(color: Color(red: 0.3, green: 0.57, blue: 0.04), radius: 2.6, x: 0, y: 14.2735)
@@ -135,6 +136,7 @@ struct LessonCompletionView: View {
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .onAppear {
+                AudioService.shared.playAudio(named: "sucess")
                 DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
                     onDismiss()
                 }
@@ -212,20 +214,3 @@ struct HiddenTranslationView: View {
         .frame(height: 60)
     }
 }
-
-#Preview {
-    LessonView(lesson: Lesson(
-        title: "My body",
-        phrases: [
-            Phrase(nativeText: "I am in pain", targetText: "Estou com dor", audioFileName: "dor_audio", imageName: "bandage.fill", category: .selfCare),
-            Phrase(nativeText: "My head hurts", targetText: "Minha cabeça dói", audioFileName: "cabeca_audio", imageName: "cross.case.fill", category: .selfCare),
-            Phrase(nativeText: "My tummy hurts", targetText: "Minha barriga dói", audioFileName: "barriga_audio", imageName: "pills.fill", category: .selfCare),
-            Phrase(nativeText: "I am sick", targetText: "Estou doente", audioFileName: "doente_audio", imageName: "thermometer", category: .selfCare)
-        ],
-        description: "Learn to tell when something is wrong with your body.",
-        category: .selfCare,
-        order: 1
-        
-    ) )
-}
-

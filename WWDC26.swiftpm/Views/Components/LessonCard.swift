@@ -46,20 +46,3 @@ struct LessonCard: View {
         .animation(.spring(response: 0.4, dampingFraction: 0.6), value: isSelected)
     }
 }
-//#Preview {
-//    LessonCard(lesson: Lesson(
-//        title: "Needs",
-//        phrases: [ Phrase(
-//            nativeText: "Hi",
-//            targetText: "Olá",
-//            audioFileName: "hello_audio",
-//            imageName: "hand.wave",
-//            category: .social
-//        ) ],
-//        description: "Learn some basic needs in Portuguese",
-//        category: .needs,
-//        isCompleted: false,
-//        order: 2
-//        
-//    ), isSelected: true, isUnlocked: false )
-//}

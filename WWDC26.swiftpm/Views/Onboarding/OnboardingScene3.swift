@@ -57,7 +57,10 @@ struct OnboardingScene3: View {
                 )
                 
                 if hasInteracted {
-                    Button(action: finishAction) {
+                    Button(action: {
+                        AudioService.shared.playAudio(named: "click")
+                        finishAction()
+                    }) {
                         Image(systemName: "arrow.forward")
                             .font(.system(size: 50, weight: .bold, design: .rounded))
                             .foregroundColor(.white)

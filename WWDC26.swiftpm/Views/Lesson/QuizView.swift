@@ -67,6 +67,8 @@ struct QuizView: View {
                     LazyVGrid(columns: [GridItem(.adaptive(minimum: 150))], spacing: 15) {
                         ForEach(shuffledWords, id: \.self) { word in
                             Button(action: {
+                                AudioService.shared.playAudio(named: "select")
+
                                 withAnimation {
                                     selectedWords.append(word)
                                     shuffledWords.removeAll { $0 == word }
@@ -87,6 +89,7 @@ struct QuizView: View {
                 Spacer()
                 
                 Button(action: {
+                    AudioService.shared.playAudio(named: "click")
                     checkAnswer()
                 }) {
                     Text("Check Answer")
@@ -183,6 +186,8 @@ struct QuizResultSheetView: View {
                     .padding()
             
             Button(action: {
+                AudioService.shared.playAudio(named: "click")
+
                 showResultSheet = false
                 
                 if isCorrect {
@@ -211,21 +216,4 @@ struct QuizResultSheetView: View {
         .padding()
         // .presentationDetents([.fraction(0.4)])
     }
-}
-
-#Preview {
-  QuizView(viewModel: LessonViewModel(lesson:
-    Lesson(
-        title: "My body",
-        phrases: [
-            Phrase(nativeText: "My tummy hurts", targetText: "Minha barriga dói", audioFileName: "barriga_audio", imageName: "pills.fill", category: .selfCare),
-            Phrase(nativeText: "I am in pain", targetText: "Estou com dor", audioFileName: "dor_audio", imageName: "bandage.fill", category: .selfCare),
-            Phrase(nativeText: "My head hurts", targetText: "Minha cabeça dói", audioFileName: "cabeca_audio", imageName: "cross.case.fill", category: .selfCare),
-            Phrase(nativeText: "I am sick", targetText: "Estou doente", audioFileName: "doente_audio", imageName: "thermometer", category: .selfCare)
-        ],
-        description: "Learn to tell when something is wrong with your body.",
-        category: .selfCare,
-        order: 1
-        
-    )))
 }

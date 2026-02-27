@@ -29,7 +29,9 @@ struct HomeView: View {
 
                         HStack {
                             Button(action: {
+                                AudioService.shared.playAudio(named: "click")
                                 showMenu = true
+                                
                             }) {
                                 ZStack {
                                     Rectangle()
@@ -80,6 +82,7 @@ struct HomeView: View {
                                         }
                                     )
                                     .onTapGesture {
+                                        AudioService.shared.playAudio(named: "click")
                                         withAnimation(.spring(response: 0.4, dampingFraction: 0.7, blendDuration: 0.5)) {
                                             viewModel.selectedCategory = category
                                         }
@@ -112,12 +115,18 @@ struct HomeView: View {
                                             viewModel.markLessonAsCompleted(id: completedId)
                                         }
                                     )) {
+                                        
                                         LessonCard(
                                             lesson: lesson,
                                             isSelected: isSelected,
                                             isUnlocked: isUnlocked
                                         )
                                     }
+                                    .simultaneousGesture(TapGesture().onEnded {
+                                        if isUnlocked {
+                                            AudioService.shared.playAudio(named: "start")
+                                        }
+                                    })
                                     .allowsHitTesting(isUnlocked)
                                     .buttonStyle(PlainButtonStyle())
                                     .offset(x: getOffset(for: index))

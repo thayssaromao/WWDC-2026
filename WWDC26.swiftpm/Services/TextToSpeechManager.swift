@@ -17,7 +17,7 @@ class TextToSpeechManager {
         
         utterance.voice = AVSpeechSynthesisVoice(language: language)
         
-        utterance.rate = 0.45
+        utterance.rate = 0.3
         utterance.pitchMultiplier = 1.1
         synthesizer.speak(utterance)
     }

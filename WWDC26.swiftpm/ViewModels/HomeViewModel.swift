@@ -51,57 +51,5 @@ final class HomeViewModel: ObservableObject {
             objectWillChange.send()
         }
     }
-    
-//    func loadMockData() {
-//        
-//        let phrase1 = Phrase(
-//            nativeText: "Hi",
-//            targetText: "Olá",
-//            audioFileName: "olaC",
-//            imageName: "hand.wave",
-//            category: .social
-//        )
-//        
-//        let phrase2 = Phrase(
-//            nativeText: "Water please",
-//            targetText: "Água por favor",
-//            audioFileName: "water_audio",
-//            imageName: "drop",
-//            category: .needs
-//        )
-//        
-//        let phrase3 = Phrase(
-//            nativeText: "Let's Play?",
-//            targetText: "Vamos Brincar?",
-//            audioFileName: "play",
-//            imageName: "gamecontroller",
-//            category: .social
-//        )
-//        
-//        let lesson1 = Lesson(
-//            title: "Greetings",
-//            phrases: [ phrase1 ],
-//            description: "Learn some basic greetings in Portuguese",
-//            category: .social,
-//            order: 1
-//        )
-//        
-//        let lesson2 = Lesson(
-//            title: "Needs",
-//            phrases: [ phrase2 ],
-//            description: "Learn some basic needs in Portuguese",
-//            category: .needs,
-//            order: 1
-//        )
-//        
-//        let lesson3 = Lesson(
-//            title: "Social",
-//            phrases: [ phrase3 ],
-//            description: "Learn some social words in Portuguese",
-//            category: .social,
-//            order: 2
-//        )
-//        
-//        self.lessons = [ lesson1, lesson2, lesson3]
-//    }
+
 }

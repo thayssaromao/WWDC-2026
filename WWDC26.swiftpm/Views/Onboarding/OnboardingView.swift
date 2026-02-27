@@ -42,7 +42,3 @@ struct OnboardingView: View {
         }
     }
 }
-
-#Preview {
-    OnboardingView(hasSeenOnboarding: .init(get: { false }, set: { _ in }))
-}

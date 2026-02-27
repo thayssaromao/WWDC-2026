@@ -43,13 +43,13 @@
             filePath = "Views/Lesson/LessonView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "189"
-            endingLineNumber = "189"
+            startingLineNumber = "198"
+            endingLineNumber = "198"
             landmarkName = "body"
             landmarkType = "24">
             <Locations>
                <Location
-                  uuid = "FB92DE3A-5A6A-42E0-AC86-5BFA53027EAD - 78f4cd168caf40c7"
+                  uuid = "FB92DE3A-5A6A-42E0-AC86-5BFA53027EAD - 78f4cd168caf462c"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -59,11 +59,11 @@
                   urlString = "file:///Users/thadary/Developer/WWDC-2026/WWDC26.swiftpm/Views/Lesson/LessonView.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "189"
-                  endingLineNumber = "189">
+                  startingLineNumber = "198"
+                  endingLineNumber = "198">
                </Location>
                <Location
-                  uuid = "FB92DE3A-5A6A-42E0-AC86-5BFA53027EAD - 8daa3a79b2d71f74"
+                  uuid = "FB92DE3A-5A6A-42E0-AC86-5BFA53027EAD - 8daa3a79b2d71e5d"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -73,8 +73,8 @@
                   urlString = "file:///Users/thadary/Developer/WWDC-2026/WWDC26.swiftpm/Views/Lesson/LessonView.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "190"
-                  endingLineNumber = "190">
+                  startingLineNumber = "199"
+                  endingLineNumber = "199">
                </Location>
             </Locations>
          </BreakpointContent>

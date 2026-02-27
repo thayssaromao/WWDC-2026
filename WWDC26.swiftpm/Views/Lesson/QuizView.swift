@@ -64,7 +64,7 @@ struct QuizView: View {
                 
                 Spacer()
                 
-                    LazyVGrid(columns: [GridItem(.adaptive(minimum: 130))], spacing: 15) {
+                    LazyVGrid(columns: [GridItem(.adaptive(minimum: 150))], spacing: 15) {
                         ForEach(shuffledWords, id: \.self) { word in
                             Button(action: {
                                 withAnimation {
@@ -82,21 +82,23 @@ struct QuizView: View {
                             }
                         }
                     }
-                    .frame(maxWidth: 590)
+                    .frame(maxWidth: 660)
                 
                 Spacer()
                 
-                Button("Check Answer") {
+                Button(action: {
                     checkAnswer()
+                }) {
+                    Text("Check Answer")
+                        .font(.system(size: 35, weight: .medium, design: .rounded))
+                        .foregroundColor(.white)
+                        .padding(.horizontal, 54)
+                        .padding(.vertical, 15)
+                        .frame(width: 420, height: 80, alignment: .center)
+                        .background(Color(red: 0.5, green: 0.76, blue: 0.26))
+                        .cornerRadius(30)
+                        .shadow(color: Color(red: 0.3, green: 0.57, blue: 0.04), radius: 2.6, x: 0, y: 14.2735)
                 }
-                .font(.system(size: 35, weight: .medium, design: .rounded))
-                .foregroundColor(.white)
-                .padding(.horizontal, 54)
-                .padding(.vertical, 15)
-                .frame(width: 420, height: 80, alignment: .center)
-                .background(Color(red: 0.5, green: 0.76, blue: 0.26))
-                .cornerRadius(30)
-                .shadow(color: Color(red: 0.3, green: 0.57, blue: 0.04), radius: 2.6, x: 0, y: 14.2735)
                 
                 Spacer()
             }
@@ -180,7 +182,7 @@ struct QuizResultSheetView: View {
                     .font(.system(size: 25, weight: .semibold, design: .rounded))
                     .padding()
             
-            Button(isCorrect ? "Next" : "Try Again!") {
+            Button(action: {
                 showResultSheet = false
                 
                 if isCorrect {
@@ -192,15 +194,18 @@ struct QuizResultSheetView: View {
                     selectedWords.removeAll()
                     onRetry()
                 }
+            }) {
+                Text(isCorrect ? "Next" : "Try Again!")
+                    .font(.system(size: 35, weight: .medium, design: .rounded))
+                    .foregroundColor(.white)
+                    .padding(.horizontal, 54)
+                    .padding(.vertical, 15)
+                    .frame(width: 420, height: 80, alignment: .center)
+                    .background(isCorrect ? Color.GREEN : Color.BLUE)
+                    .cornerRadius(30)
+                    .shadow(color: isCorrect ? Color.GREEN.darker() : Color.BLUE.darker(), radius: 2.6, x: 0, y: 14.2735)
             }
-            .font(.system(size: 35, weight: .medium, design: .rounded))
-            .foregroundColor(.white)
-            .padding(.horizontal, 54)
-            .padding(.vertical, 15)
-            .frame(width: 420, height: 80, alignment: .center)
-            .background(isCorrect ? Color.GREEN : Color.BLUE)
-            .cornerRadius(30)
-            .shadow(color: isCorrect ? Color.GREEN.darker() : Color.BLUE.darker(), radius: 2.6, x: 0, y: 14.2735)
+            
             Spacer()
         }
         .padding()

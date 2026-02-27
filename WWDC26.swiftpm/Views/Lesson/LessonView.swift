@@ -52,23 +52,21 @@ struct LessonView: View {
                 
                 if viewModel.stepFinished && !viewModel.isInQuizMode && !viewModel.isLastStep {
                     HStack {
-                        Button(viewModel.isLastStep ? "Finish" : "Next") {
+                        Button(action: {
                             if viewModel.isLastStep {
                                 dismiss()
                             } else {
                                 viewModel.next()
                             }
+                        }) {
+                            Text(viewModel.isLastStep ? "Finish" : "Next")
+                                .font(.system(size: 40, weight: .bold, design: .rounded))
+                                .foregroundColor(.white)
+                                .frame(width: 500, height: 90, alignment: .center) // O frame DEVE ficar no Text
+                                .background(Color(red: 0.5, green: 0.76, blue: 0.26))
+                                .cornerRadius(30)
+                                .shadow(color: Color(red: 0.3, green: 0.57, blue: 0.04), radius: 2.6, x: 0, y: 14.2735)
                         }
-                        .font(
-                            .system(size: 40, weight: .bold, design: .rounded)
-                        )
-                        .foregroundColor(.white)
-                        .padding(.horizontal, 54)
-                        .padding(.vertical, 15)
-                        .frame(width: 500, height: 90, alignment: .center)
-                        .background(Color(red: 0.5, green: 0.76, blue: 0.26))
-                        .cornerRadius(30)
-                        .shadow(color: Color(red: 0.3, green: 0.57, blue: 0.04), radius: 2.6, x: 0, y: 14.2735)
                     }
                     .padding()
                 }
@@ -104,31 +102,42 @@ struct LessonCompletionView: View {
     var onDismiss: () -> Void
     
     var body: some View {
-        VStack(spacing: 20) {
-            Spacer()
+        ZStack {
+            Image("BG")
+                .resizable()
+                .ignoresSafeArea()
             
-            Image(systemName: "checkmark.circle.fill")
-                .font(.system(size: 100))
-                .foregroundColor(.green)
-                .scaleEffect(1.2)
-                .padding()
-            
-            Text("Lição Concluída!")
-                .font(.largeTitle)
-                .bold()
-                .foregroundColor(.black)
-            
-            Text("Você aprendeu novas frases hoje.")
-                .font(.body)
-                .foregroundColor(.gray)
-            
-            Spacer()
-        }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(Color.white)
-        .onAppear {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-                onDismiss()
+            VStack(spacing: 20) {
+                Spacer()
+
+                Text("LESSON FINISHED!")
+                    .font(.system(size: 40, weight: .bold, design: .rounded))
+                    .bold()
+                    .foregroundColor(.white)
+                    .padding(.horizontal,60)
+                    .padding(.vertical, 20)
+                    .background(Color.GREEN)
+                    .cornerRadius(80)
+                    .shadow(color:  Color.GREEN.darker(), radius: 4, x: 0, y: 6)
+                
+                Text("You learned new phrases today.")
+                    .font(.system(size: 25, weight: .semibold, design: .rounded))
+                    .foregroundColor(.gray)
+                    .padding(.top, 30)
+                
+                Image("pencilFinished")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(height: 750)
+                    .padding(.top, 50)
+                
+                Spacer()
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .onAppear {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                    onDismiss()
+                }
             }
         }
     }
@@ -204,18 +213,19 @@ struct HiddenTranslationView: View {
     }
 }
 
-//#Preview {
-//    LessonView(lesson: Lesson(
-//        title: "My body",
-//        phrases: [
-//            Phrase(nativeText: "I am in pain", targetText: "Estou com dor", audioFileName: "dor_audio", imageName: "bandage.fill", category: .selfCare),
-//            Phrase(nativeText: "My head hurts", targetText: "Minha cabeça dói", audioFileName: "cabeca_audio", imageName: "cross.case.fill", category: .selfCare),
-//            Phrase(nativeText: "My tummy hurts", targetText: "Minha barriga dói", audioFileName: "barriga_audio", imageName: "pills.fill", category: .selfCare),
-//            Phrase(nativeText: "I am sick", targetText: "Estou doente", audioFileName: "doente_audio", imageName: "thermometer", category: .selfCare)
-//        ],
-//        description: "Learn to tell when something is wrong with your body.",
-//        category: .selfCare,
-//        order: 1
-//        
-//    ) )
-//}
+#Preview {
+    LessonView(lesson: Lesson(
+        title: "My body",
+        phrases: [
+            Phrase(nativeText: "I am in pain", targetText: "Estou com dor", audioFileName: "dor_audio", imageName: "bandage.fill", category: .selfCare),
+            Phrase(nativeText: "My head hurts", targetText: "Minha cabeça dói", audioFileName: "cabeca_audio", imageName: "cross.case.fill", category: .selfCare),
+            Phrase(nativeText: "My tummy hurts", targetText: "Minha barriga dói", audioFileName: "barriga_audio", imageName: "pills.fill", category: .selfCare),
+            Phrase(nativeText: "I am sick", targetText: "Estou doente", audioFileName: "doente_audio", imageName: "thermometer", category: .selfCare)
+        ],
+        description: "Learn to tell when something is wrong with your body.",
+        category: .selfCare,
+        order: 1
+        
+    ) )
+}
+

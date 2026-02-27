@@ -6,7 +6,7 @@ struct HomeView: View {
     @Namespace private var animation
     
     let pattern: [CGFloat] = [-200, 200, -160, 200]
-    let itemHeight: CGFloat = 235
+    let itemHeight: CGFloat = 225
     
     @State private var showMenu = false
     
@@ -94,48 +94,54 @@ struct HomeView: View {
                     
                     Spacer()
                     
-                    if viewModel.filteredLessons.isEmpty {
-                        Text("Nenhuma lição encontrada")
-                            .foregroundColor(.gray)
-                            .frame(maxHeight: .infinity)
-                    } else {
-                        let enumeratedLessons = Array(viewModel.filteredLessons.enumerated())
-                        VStack {
-                            ForEach(enumeratedLessons.reversed(), id: \.element.id) { index, lesson in
-                                let isUnlocked = viewModel.isUnlocked(lesson: lesson)
-                                let isSelected = viewModel.selectedLessonId == lesson.id
-                                
-                                NavigationLink(destination: LessonView(
-                                    lesson: lesson,
-                                    onLessonCompleted: { completedId in
-                                        viewModel.markLessonAsCompleted(id: completedId)
-                                    }
-                                )) {
-                                    LessonCard(
+                    VStack {
+                        if viewModel.filteredLessons.isEmpty {
+                            Text("Nenhuma lição encontrada")
+                                .foregroundColor(.gray)
+                                .frame(maxHeight: .infinity)
+                        } else {
+                            let enumeratedLessons = Array(viewModel.filteredLessons.enumerated())
+                            VStack {
+                                ForEach(enumeratedLessons.reversed(), id: \.element.id) { index, lesson in
+                                    let isUnlocked = viewModel.isUnlocked(lesson: lesson)
+                                    let isSelected = viewModel.selectedLessonId == lesson.id
+                                    
+                                    NavigationLink(destination: LessonView(
                                         lesson: lesson,
-                                        isSelected: isSelected,
-                                        isUnlocked: isUnlocked
-                                    )
+                                        onLessonCompleted: { completedId in
+                                            viewModel.markLessonAsCompleted(id: completedId)
+                                        }
+                                    )) {
+                                        LessonCard(
+                                            lesson: lesson,
+                                            isSelected: isSelected,
+                                            isUnlocked: isUnlocked
+                                        )
+                                    }
+                                    .allowsHitTesting(isUnlocked)
+                                    .buttonStyle(PlainButtonStyle())
+                                    .offset(x: getOffset(for: index))
+                                    .frame(height: itemHeight)
+                                    .zIndex(isSelected ? 1 : 0)
                                 }
-                                .allowsHitTesting(isUnlocked)
-                                .buttonStyle(PlainButtonStyle())
-                                .offset(x: getOffset(for: index))
-                                .frame(height: itemHeight)
-                                .zIndex(isSelected ? 1 : 0)
                             }
+                            .frame(maxWidth: .infinity)
+                            .background(
+                                TracingPath(count: enumeratedLessons.count, stepY: itemHeight, pattern: pattern)
+                                    .stroke(
+                                        viewModel.selectedCategory.categoryColor,
+                                        style: StrokeStyle(lineWidth: 16, lineCap: .round, lineJoin: .round, dash: [60, 55])
+                                    )
+                            )
+                            .padding(.vertical, 50)
                         }
-                        .frame(maxWidth: .infinity)
-                        .background(
-                            TracingPath(count: enumeratedLessons.count, stepY: itemHeight, pattern: pattern)
-                                .stroke(
-                                    viewModel.selectedCategory.categoryColor,
-                                    style: StrokeStyle(lineWidth: 16, lineCap: .round, lineJoin: .round, dash: [60, 55])
-                                )
-                        )
-                        .padding(.vertical, 50)
+                        
                     }
-                }
-                .padding()
+                    .padding(.bottom,50)
+                    
+                    Spacer()
+                }.padding()
+                
             }
         }
     }

@@ -8,28 +8,25 @@ import PackageDescription
 import AppleProductTypes
 
 let package = Package(
-    name: "My App",
+    name: "HiWay",
     platforms: [
         .iOS("18.1")
     ],
     products: [
         .iOSApplication(
-            name: "My App",
+            name: "HiWay",
             targets: ["AppModule"],
             teamIdentifier: "ZP7U6722Y6",
             displayVersion: "1.0",
             bundleVersion: "1",
-            appIcon: .placeholder(icon: .openBook),
+            appIcon: .asset("AppIcon"),
             accentColor: .presetColor(.pink),
             supportedDeviceFamilies: [
                 .pad,
                 .phone
             ],
             supportedInterfaceOrientations: [
-                .portrait,
-                .landscapeRight,
-                .landscapeLeft,
-                .portraitUpsideDown(.when(deviceFamilies: [.pad]))
+                .portrait
             ],
             capabilities: [
                 .microphone(purposeString: "Privacy - Microphone Usage Description: \"We need to hear your voice to check your pronunciation.\""),

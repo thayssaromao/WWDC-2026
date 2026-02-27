@@ -25,10 +25,7 @@ struct AudioPillView: View {
                     .scaleEffect(isSpeaking ? 1.1 : 1.0)
                     .frame(width: 441, height: 96, alignment: .center)
             }
-            Text("Listen to translate")
-                            .font(.system(size: 18, weight: .regular))
-                            .foregroundColor(.gray)
-                            .italic()
+           
             
         }
         .padding(.horizontal, 96.3461)

@@ -18,7 +18,7 @@ struct LessonData {
                 Phrase(nativeText: "I am cold", targetText: "Estou com frio", audioFileName: "frio_audio", imageName: "snowflake", category: .selfCare),
                 Phrase(nativeText: "I am hot", targetText: "Estou com calor", audioFileName: "calor_audio", imageName: "sun.max.fill", category: .selfCare),
                 Phrase(nativeText: "I am fine", targetText: "Estou bem", audioFileName: "bem_audio", imageName: "hand.thumbsup.fill", category: .selfCare),
-                Phrase(nativeText: "I am tired", targetText: "Estou cansado(a)", audioFileName: "cansado_audio", imageName: "zzz", category: .selfCare),
+                Phrase(nativeText: "I am tired", targetText: "Estou cansado", audioFileName: "cansado_audio", imageName: "zzz", category: .selfCare),
                 Phrase(nativeText: "I am happy", targetText: "Estou feliz", audioFileName: "feliz_audio", imageName: "face.smiling", category: .selfCare),
                 Phrase(nativeText: "I am sad", targetText: "Estou triste", audioFileName: "triste_audio", imageName: "cloud.rain.fill", category: .selfCare)
             ],
@@ -302,7 +302,7 @@ struct LessonData {
                 ),
                 Phrase(
                     nativeText: "Thank you",
-                    targetText: "Obrigado(a)",
+                    targetText: "Obrigada",
                     audioFileName: "obrigado_audio",
                     imageName: "heart.circle.fill",
                     category: .social
